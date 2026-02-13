@@ -2,6 +2,7 @@ import Image from "next/image";
 import { flowers } from "../../data/data";
 import type { BouquetReadOnlyProps } from "@/types/bouquet";
 
+// Redundancy trigger for Vercel deployment
 export default function Bouquet({ bouquet, lang }: BouquetReadOnlyProps & { lang?: string }) {
   // Helper function to get flower dimensions based on size
   const getFlowerDimensions = (size: string) => {
