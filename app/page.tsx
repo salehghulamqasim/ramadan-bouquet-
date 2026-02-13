@@ -94,7 +94,7 @@ export default function Home() {
 
         <div className="mt-10 text-sm text-gray-500 flex flex-col gap-6">
           <div className="flex flex-col items-center">
-            <span>{lang === 'ar' ? "تطوير:" : "Modified by:"}</span>
+            <span>{lang === 'ar' ? "تعديل:" : "Modified by:"}</span>
             <Link
               href="https://www.linkedin.com/in/salehghulam/"
               className="text-sm text-gray-500 underline"

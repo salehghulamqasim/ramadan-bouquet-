@@ -106,9 +106,31 @@ export default function Bouquet({ bouquet, lang }: BouquetReadOnlyProps & { lang
       <div className="mx-auto max-w-sm text-sm text-center">
         <div>
           {/* White card container with black border */}
-          <div className={`bg-white border-[1.5px] border-black p-8 mx-auto -translate-y-[50px] -rotate-2 hover:-rotate-2 transition-all duration-300 relative ${lang === 'ar' ? 'font-arabic' : ''}`} dir={lang === 'ar' ? 'rtl' : 'ltr'}>
-            {/* Crescent Moon Image - Top Left for Arabic, Top Right for English */}
-            <div className={`absolute top-4 ${lang === 'ar' ? 'left-4' : 'right-4'} z-20 pointer-events-none`}>
+          <div className={`bg-white border-[1.5px] border-black p-8 mx-auto -translate-y-[50px] transition-all duration-300 relative ${lang === 'ar' ? 'font-arabic' : ''}`} dir={lang === 'ar' ? 'rtl' : 'ltr'}>
+
+            <div className="space-y-4">
+              <div className="flex flex-row gap-2 items-left justify-left">
+                <p className="bg-transparent border-none focus:outline-none focus:ring-0 text-lg font-bold">
+                  {lang === 'ar' ? "إلى " : "Dear "} {bouquet.letter.recipient}
+                </p>
+              </div>
+
+              <div className={lang === 'ar' ? "text-right text-xl leading-relaxed" : "text-left"}>
+                <p>{bouquet.letter.message}</p>
+              </div>
+
+              <div className="flex flex-col gap-2 justify-end items-end pt-8">
+                <p className="bg-transparent border-none focus:outline-none focus:ring-0">
+                  {lang === 'ar' ? "تقبل الله منا ومنكم،" : "Sincerely,"}
+                </p>
+                <p className="bg-transparent border-none focus:outline-none focus:ring-0 font-bold">
+                  {bouquet.letter.sender}
+                </p>
+              </div>
+            </div>
+
+            {/* Crescent Moon - Bottom Opposite to Signature */}
+            <div className={`absolute bottom-4 ${lang === 'ar' ? 'right-4' : 'left-4'} z-20 pointer-events-none`}>
               <Image
                 src="/crescent.png"
                 alt="crescent moon"
@@ -116,27 +138,6 @@ export default function Bouquet({ bouquet, lang }: BouquetReadOnlyProps & { lang
                 height={32}
                 className={`object-contain sm:w-[40px] sm:h-[40px] ${lang === 'ar' ? 'scale-x-[-1]' : ''}`}
               />
-            </div>
-
-            <div className="space-y-4">
-              <div className="flex flex-row gap-2 items-left justify-left">
-                <p className="bg-transparent border-none focus:outline-none focus:ring-0">
-                  {lang === 'ar' ? "إلى " : "Dear "} {bouquet.letter.recipient}
-                </p>
-              </div>
-
-              <div className={lang === 'ar' ? "text-right" : "text-left"}>
-                <p>{bouquet.letter.message}</p>
-              </div>
-
-              <div className="flex flex-col gap-2 justify-end items-end">
-                <p className="bg-transparent border-none focus:outline-none focus:ring-0">
-                  {lang === 'ar' ? "تقبل الله منا ومنكم،" : "Sincerely,"}
-                </p>
-                <p className="bg-transparent border-none focus:outline-none focus:ring-0">
-                  {bouquet.letter.sender}
-                </p>
-              </div>
             </div>
           </div>
         </div>

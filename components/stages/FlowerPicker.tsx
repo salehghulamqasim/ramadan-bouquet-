@@ -101,7 +101,7 @@ export default function FlowerPicker() {
                             : 160
                       }
                       className="object-cover"
-                      priority
+                      loading="lazy"
                     />
                   </div>
 
