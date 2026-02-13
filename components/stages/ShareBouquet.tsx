@@ -30,52 +30,37 @@ export default function ShareBouquet() {
     }
   };
 
-  // Helper function to get flower dimensions based on size
-  const getFlowerDimensions = (size: string) => {
-    switch (size) {
-      case "small":
-        return 80;
-      case "large":
-        return 160;
-      default:
-        return 120; // medium
+  const handleShare = async () => {
+    if (bouquetRef.current === null) return;
+
+    try {
+      const dataUrl = await toPng(bouquetRef.current, {
+        cacheBust: true,
+        pixelRatio: 2,
+        backgroundColor: '#F5F5DC'
+      });
+
+      const response = await fetch(dataUrl);
+      const blob = await response.blob();
+      const file = new File([blob], "digibouquet.png", { type: "image/png" });
+
+      if (navigator.share && navigator.canShare?.({ files: [file] })) {
+        await navigator.share({
+          files: [file],
+          title: 'DigiBouquet',
+          text: lang === 'ar' ? 'صنعت لك هذه الباقة!' : 'I made this bouquet for you!',
+        });
+      } else {
+        // If navigator.share is not supported or sharing files is not allowed,
+        // we fallback to the download method.
+        handleDownload();
+      }
+    } catch (err) {
+      console.error("Sharing failed", err);
     }
   };
 
   const router = useRouter();
-
-  const handleCreateBouquet = async (bouquet: BouquetType) => {
-    const short_id = nanoid(8);
-
-    if (!supabase) {
-      alert("Sharing is currently disabled as the database is not configured. Please use the 'Download Card' Feature.");
-      return;
-    }
-
-    const { data: dbData, error } = await supabase
-      .from("bouquets")
-      .insert([
-        {
-          short_id: short_id,
-          mode: `${bouquet.mode}&lang=${lang === 'ar' ? 'ar' : 'en'}`,
-          flowers: bouquet.flowers,
-          letter: bouquet.letter,
-          timestamp: bouquet.timestamp,
-          greenery: bouquet.greenery,
-          flowerOrder: bouquet.flowerOrder,
-        },
-      ])
-      .select();
-
-    if (error || !dbData || dbData.length === 0) {
-      console.error("Error creating bouquet:", error);
-      alert("Error creating shareable link. Please try later or use 'Download Card'.");
-      return;
-    }
-
-    const bouquetId = dbData[0].id;
-    router.push(`/bouquet/${bouquetId}`);
-  };
 
   return (
     <div className={`text-center ${lang === 'ar' ? 'font-arabic' : ''}`}>
@@ -84,27 +69,24 @@ export default function ShareBouquet() {
       </h2>
 
       <div className="flex justify-center w-full overflow-x-auto no-scrollbar">
-        <div ref={bouquetRef} className="w-fit mx-auto p-4 sm:p-8 bg-[#F5F5DC]"> {/* Added bg color explicitly to capture correctly if transparent */}
+        <div ref={bouquetRef} className="w-fit mx-auto p-4 sm:p-8 bg-[#F5F5DC]">
           <Bouquet bouquet={bouquet} lang={lang} />
         </div>
       </div>
 
       <div className="flex flex-col gap-4 items-center justify-center mt-8">
         <button
+          onClick={handleShare}
+          className="uppercase text-white bg-black px-8 py-3 hover:bg-black/90 transition-colors w-full max-w-xs"
+        >
+          {lang === 'ar' ? "مشاركة" : "SHARE"}
+        </button>
+
+        <button
           onClick={handleDownload}
           className="uppercase text-black border border-black px-8 py-3 hover:bg-gray-100 transition-colors w-full max-w-xs"
         >
           {lang === 'ar' ? "حمّل البطاقة" : "DOWNLOAD CARD"}
-        </button>
-
-        <button
-          onClick={() => {
-            console.log("Sending bouquet");
-            handleCreateBouquet(bouquet);
-          }}
-          className="uppercase text-white bg-black px-8 py-3 hover:bg-black/90 transition-colors w-full max-w-xs"
-        >
-          {lang === 'ar' ? "اصنع رابط مشاركة" : "CREATE SHAREABLE LINK"}
         </button>
       </div>
     </div>
