@@ -100,8 +100,8 @@ export default function FlowerPicker() {
                             ? 192
                             : 160
                       }
-                      className="object-cover"
-                      loading="lazy"
+                      className="object-cover transform-gpu"
+                      priority={flowersData.indexOf(flower) < 12}
                     />
                   </div>
 

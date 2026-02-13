@@ -8,7 +8,7 @@ const nextConfig = {
     // ignoreBuildErrors: true,
   },
   images: {
-    unoptimized: true, // Required for Cloudflare Pages unless using a paid plan or custom loader
+    // unoptimized: true, // No longer needed for Vercel, enabling optimization will fix performance issues.
   },
   experimental: {
     webpackBuildWorker: true,
