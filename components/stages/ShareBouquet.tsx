@@ -70,8 +70,10 @@ export default function ShareBouquet() {
 
       <div className="flex justify-center w-full overflow-x-auto no-scrollbar">
         {/* We remove padding here to ensure the captured image is exactly the component size */}
-        <div ref={bouquetRef} className="w-fit mx-auto bg-[#F5F5DC]">
-          <Bouquet bouquet={bouquet} lang={lang} />
+        <div ref={bouquetRef} className="w-fit mx-auto bg-[#F5F5DC] p-8 md:p-12 rounded-none">
+          <div className="shadow-2xl">
+            <Bouquet bouquet={bouquet} lang={lang} />
+          </div>
         </div>
       </div>
 

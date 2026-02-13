@@ -32,11 +32,11 @@ export default function Bouquet({ bouquet, lang }: BouquetReadOnlyProps & { lang
   return (
     <div className={`text-center ${lang === 'ar' ? 'font-arabic' : ''}`}>
       <div
-        className="flex flex-col max-w-lg mx-auto bg-[#F5F5DC] rounded-full overflow-hidden shadow-xl sm:rounded-none sm:shadow-none"
+        className="flex flex-col max-w-lg mx-auto bg-[#F5F5DC] rounded-xl shadow-2xl border-2 border-[#D4AF37]/50 relative overflow-hidden"
         style={{ aspectRatio: '4/5' }}
       >
-        <div className="flex relative justify-center items-center py-4 my-4 flex-grow">
-          <div className="relative w-[500px] min-h-[410px]">
+        <div className="flex relative justify-center items-center py-8 flex-grow">
+          <div className="relative w-full max-w-[500px] min-h-[410px]">
             {/* Bush background images - positioned absolutely to stay fixed */}
             {/* Bottom bush layer */}
 
