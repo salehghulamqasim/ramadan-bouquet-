@@ -103,40 +103,40 @@ export default function Bouquet({ bouquet, lang }: BouquetReadOnlyProps & { lang
           </div>
         </div>
       </div>
-      <div className="mx-auto max-w-sm text-sm text-center">
-        <div>
+      <div className="mx-auto max-w-sm text-sm text-center mt-8">
+        <div className="flex justify-center">
           {/* White card container with black border */}
-          <div className={`bg-white border-[1.5px] border-black p-8 mx-auto -translate-y-[50px] transition-all duration-300 relative ${lang === 'ar' ? 'font-arabic' : ''}`} dir={lang === 'ar' ? 'rtl' : 'ltr'}>
+          <div className={`bg-white border-[1.5px] border-black p-10 mx-auto transition-all duration-300 relative w-full ${lang === 'ar' ? 'font-arabic' : ''}`} dir={lang === 'ar' ? 'rtl' : 'ltr'}>
 
-            <div className="space-y-4">
+            <div className="space-y-6">
               <div className="flex flex-row gap-2 items-left justify-left">
-                <p className="bg-transparent border-none focus:outline-none focus:ring-0 text-lg font-bold">
+                <p className="bg-transparent border-none focus:outline-none focus:ring-0 text-xl font-bold">
                   {lang === 'ar' ? "إلى " : "Dear "} {bouquet.letter.recipient}
                 </p>
               </div>
 
-              <div className={lang === 'ar' ? "text-right text-xl leading-relaxed" : "text-left"}>
+              <div className={lang === 'ar' ? "text-right text-2xl leading-relaxed py-4" : "text-left text-lg leading-relaxed py-4"}>
                 <p>{bouquet.letter.message}</p>
               </div>
 
-              <div className="flex flex-col gap-2 justify-end items-end pt-8">
-                <p className="bg-transparent border-none focus:outline-none focus:ring-0">
+              <div className="flex flex-col gap-2 justify-end items-end pt-10">
+                <p className="bg-transparent border-none focus:outline-none focus:ring-0 text-lg">
                   {lang === 'ar' ? "تقبل الله منا ومنكم،" : "Sincerely,"}
                 </p>
-                <p className="bg-transparent border-none focus:outline-none focus:ring-0 font-bold">
+                <p className="bg-transparent border-none focus:outline-none focus:ring-0 text-xl font-bold">
                   {bouquet.letter.sender}
                 </p>
               </div>
             </div>
 
             {/* Crescent Moon - Bottom Opposite to Signature */}
-            <div className={`absolute bottom-4 ${lang === 'ar' ? 'right-4' : 'left-4'} z-20 pointer-events-none`}>
+            <div className={`absolute bottom-4 ${lang === 'ar' ? 'right-6' : 'left-6'} z-20 pointer-events-none`}>
               <Image
                 src="/crescent.png"
                 alt="crescent moon"
                 width={32}
                 height={32}
-                className={`object-contain sm:w-[40px] sm:h-[40px] ${lang === 'ar' ? 'scale-x-[-1]' : ''}`}
+                className={`object-contain sm:w-[50px] sm:h-[50px] ${lang === 'ar' ? 'scale-x-[-1]' : ''}`}
               />
             </div>
           </div>
