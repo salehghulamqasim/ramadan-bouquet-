@@ -7,13 +7,12 @@ const nextConfig = {
   typescript: {
     // ignoreBuildErrors: true,
   },
+  reactStrictMode: true,
   images: {
-    // unoptimized: true, // No longer needed for Vercel, enabling optimization will fix performance issues.
+    // Optimized images for Vercel
   },
   experimental: {
     webpackBuildWorker: true,
-    parallelServerBuildTraces: true,
-    parallelServerCompiles: true,
   },
 };
 
