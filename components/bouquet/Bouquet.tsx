@@ -61,7 +61,7 @@ export default function Bouquet({ bouquet, lang }: BouquetReadOnlyProps & { lang
         </div>
 
         {/* Flowers Layer */}
-        <div className="absolute left-1/2 top-[38%] transform -translate-x-1/2 -translate-y-1/2 w-[65%] z-10 flex flex-wrap-reverse justify-center items-center -space-x-4 -space-y-16">
+        <div className="absolute left-1/2 top-[38%] transform -translate-x-1/2 -translate-y-1/2 w-[65%] z-10 flex flex-wrap-reverse justify-center items-center -space-x-4 -space-y-8">
           {bouquet.flowers.flatMap(
             (
               flower: { id: number; count: number },
