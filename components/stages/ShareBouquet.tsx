@@ -20,7 +20,7 @@ export default function ShareBouquet() {
     }
 
     try {
-      const dataUrl = await toPng(bouquetRef.current, { cacheBust: true, pixelRatio: 2, backgroundColor: '#F5F5DC' });
+      const dataUrl = await toPng(bouquetRef.current, { cacheBust: true, pixelRatio: 3, backgroundColor: '#F5F5DC' });
       const link = document.createElement("a");
       link.download = "my-digibouquet.png";
       link.href = dataUrl;
@@ -36,7 +36,7 @@ export default function ShareBouquet() {
     try {
       const dataUrl = await toPng(bouquetRef.current, {
         cacheBust: true,
-        pixelRatio: 2,
+        pixelRatio: 3, // Higher quality for social media
         backgroundColor: '#F5F5DC'
       });
 
@@ -69,7 +69,8 @@ export default function ShareBouquet() {
       </h2>
 
       <div className="flex justify-center w-full overflow-x-auto no-scrollbar">
-        <div ref={bouquetRef} className="w-fit mx-auto p-4 sm:p-8 bg-[#F5F5DC]">
+        {/* We remove padding here to ensure the captured image is exactly the component size */}
+        <div ref={bouquetRef} className="w-fit mx-auto bg-[#F5F5DC]">
           <Bouquet bouquet={bouquet} lang={lang} />
         </div>
       </div>
