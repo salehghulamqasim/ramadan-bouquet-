@@ -52,9 +52,7 @@ export default function ShareBouquet() {
       return;
     }
 
-    /*
-    // @ts-ignore
-    const { data, error } = await supabase!
+    const { data: dbData, error } = await supabase
       .from("bouquets")
       .insert([
         {
@@ -67,19 +65,15 @@ export default function ShareBouquet() {
           flowerOrder: bouquet.flowerOrder,
         },
       ])
-      .select(); // returns inserted row(s)
-      */
-    console.log("Supabase insert disabled");
-    const error = { message: "Supabase disabled" };
-    const dbData: any[] | null = null;
+      .select();
 
-    if (error || !dbData || (dbData as any).length === 0) {
+    if (error || !dbData || dbData.length === 0) {
       console.error("Error creating bouquet:", error);
-      alert("Sharing is currently disabled. Please use 'Download Card'.");
+      alert("Error creating shareable link. Please try later or use 'Download Card'.");
       return;
     }
 
-    const bouquetId = (dbData as any)[0].id;
+    const bouquetId = dbData[0].id;
     router.push(`/bouquet/${bouquetId}`);
   };
 
