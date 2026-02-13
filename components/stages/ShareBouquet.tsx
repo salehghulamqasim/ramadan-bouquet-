@@ -22,7 +22,7 @@ export default function ShareBouquet() {
     try {
       const dataUrl = await toPng(bouquetRef.current, { cacheBust: true, pixelRatio: 3, backgroundColor: '#F5F5DC' });
       const link = document.createElement("a");
-      link.download = "my-digibouquet.png";
+      link.download = "ramadan-bouquet.png";
       link.href = dataUrl;
       link.click();
     } catch (err) {
@@ -42,7 +42,7 @@ export default function ShareBouquet() {
 
       const response = await fetch(dataUrl);
       const blob = await response.blob();
-      const file = new File([blob], "digibouquet.png", { type: "image/png" });
+      const file = new File([blob], "ramadan-bouquet.png", { type: "image/png" });
 
       if (navigator.share && navigator.canShare?.({ files: [file] })) {
         await navigator.share({

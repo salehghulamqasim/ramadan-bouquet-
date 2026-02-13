@@ -56,11 +56,12 @@ export default function Bouquet({ bouquet, lang }: BouquetReadOnlyProps & { lang
             height={500}
             className="w-full h-auto object-contain"
             priority
+            unoptimized
           />
         </div>
 
         {/* Flowers Layer */}
-        <div className="absolute left-1/2 top-[38%] transform -translate-x-1/2 -translate-y-1/2 w-[65%] z-10 flex flex-wrap reverse justify-center items-center -space-x-4 -space-y-16">
+        <div className="absolute left-1/2 top-[38%] transform -translate-x-1/2 -translate-y-1/2 w-[65%] z-10 flex flex-wrap-reverse justify-center items-center -space-x-4 -space-y-16">
           {bouquet.flowers.flatMap(
             (
               flower: { id: number; count: number },
@@ -97,6 +98,7 @@ export default function Bouquet({ bouquet, lang }: BouquetReadOnlyProps & { lang
                         className="relative z-10 transition-transform hover:scale-105"
                         style={{ transform: `rotate(${rotation}deg)` }}
                         priority
+                        unoptimized
                       />
                     </div>
                   );
@@ -114,6 +116,7 @@ export default function Bouquet({ bouquet, lang }: BouquetReadOnlyProps & { lang
             height={500}
             className="w-full h-auto object-contain"
             priority
+            unoptimized
           />
         </div>
 
