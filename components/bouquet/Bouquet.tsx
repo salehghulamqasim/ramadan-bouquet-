@@ -15,7 +15,7 @@ export default function Bouquet({ bouquet, lang }: BouquetReadOnlyProps & { lang
     }
   };
 
-  // 1. Mathematical Text Scaling (Clamp Formula)
+  // Mathematical Text Scaling (Clamp Formula)
   const calculateFontSize = (text: string, containerWidth = 350) => {
     if (!text) return 16;
     const charCount = text.length;
@@ -29,17 +29,16 @@ export default function Bouquet({ bouquet, lang }: BouquetReadOnlyProps & { lang
   const senderFontSize = Math.max(14, Math.min(24, 350 / ((bouquet.letter.sender.length || 1) * 0.7)));
 
   return (
-    <div
-      className={`relative w-full max-w-[500px] mx-auto bg-[#F5F5DC] shadow-xl overflow-hidden ${lang === 'ar' ? 'font-arabic' : ''}`}
-      style={{ aspectRatio: '4/5' }}
-    >
-      {/* Container for vertical centering within the 4:5 box */}
-      <div className="absolute inset-0 flex flex-col items-center justify-center p-4">
+    <div className={`text-center ${lang === 'ar' ? 'font-arabic' : ''}`}>
+      <div
+        className="flex flex-col max-w-lg mx-auto bg-[#F5F5DC] rounded-full overflow-hidden shadow-xl sm:rounded-none sm:shadow-none"
+        style={{ aspectRatio: '4/5' }}
+      >
+        <div className="flex relative justify-center items-center py-4 my-4 flex-grow">
+          <div className="relative w-[500px] min-h-[410px]">
+            {/* Bush background images - positioned absolutely to stay fixed */}
+            {/* Bottom bush layer */}
 
-        {/* Bouquet Section (Top) */}
-        <div className="relative w-full flex-grow flex items-center justify-center -mb-8">
-          <div className="relative w-[500px] h-[410px] transform scale-90 sm:scale-100 flex items-center justify-center">
-            {/* Bottom Bush */}
             <Image
               src={`/${bouquet.mode}/bush/bush-${bouquet.greenery + 1}.png`}
               alt="bush background"
@@ -50,10 +49,15 @@ export default function Bouquet({ bouquet, lang }: BouquetReadOnlyProps & { lang
               unoptimized
             />
 
-            {/* Flower Container - using the user's structure but correcting flex-wrap-reverse */}
-            <div className="flex flex-wrap-reverse w-[300px] justify-center items-center -space-x-4 -space-y-16 relative z-10 m-auto">
+            {/* Flower container - using the EXACT working classes from your snippet */}
+            {/* Note: 'reverse' class in original implies unintended flex-wrap-reverse behavior or just normal flex-wrap if invalid */}
+            {/* I will use flex-wrap-reverse to be safe as that likely was the intent */}
+            <div className="flex flex-wrap-reverse w-[300px] justify-center items-center -space-x-4 -space-y-20 relative m-auto z-10">
               {bouquet.flowers.flatMap(
-                (flower: { id: number; count: number }, flowerIndex: number) => {
+                (
+                  flower: { id: number; count: number },
+                  flowerIndex: number
+                ) => {
                   const flowerData = flowers.find((f) => f.id === flower.id);
                   if (!flowerData) return [];
 
@@ -61,9 +65,12 @@ export default function Bouquet({ bouquet, lang }: BouquetReadOnlyProps & { lang
                     .fill(null)
                     .map((_, instanceIndex) => {
                       const rotation = Math.random() * 10 - 5;
-                      const index = bouquet.flowerOrder.length > 0
-                        ? bouquet.flowerOrder[flowerIndex * flower.count + instanceIndex] ?? flowerIndex * flower.count + instanceIndex
-                        : flowerIndex * flower.count + instanceIndex;
+                      const index =
+                        bouquet.flowerOrder.length > 0
+                          ? bouquet.flowerOrder[
+                          flowerIndex * flower.count + instanceIndex
+                          ] ?? flowerIndex * flower.count + instanceIndex
+                          : flowerIndex * flower.count + instanceIndex;
 
                       const dimensions = getFlowerDimensions(flowerData.size);
 
@@ -90,21 +97,25 @@ export default function Bouquet({ bouquet, lang }: BouquetReadOnlyProps & { lang
               )}
             </div>
 
-            {/* Top Bush */}
-            <Image
-              src={`/${bouquet.mode}/bush/bush-${bouquet.greenery + 1}-top.png`}
-              alt="bush top"
-              width={600}
-              height={500}
-              className="absolute top-1/2 left-1/2 z-20 transform -translate-x-1/2 -translate-y-1/2 pointer-events-none"
-              priority
-              unoptimized
-            />
+            {/* Top bush layer */}
+
+            <div>
+              <Image
+                src={`/${bouquet.mode}/bush/bush-${bouquet.greenery + 1
+                  }-top.png`}
+                alt="bush top"
+                width={600}
+                height={500}
+                className="absolute top-1/2 left-1/2 z-20 transform -translate-x-1/2 -translate-y-1/2 pointer-events-none"
+                priority
+                unoptimized
+              />
+            </div>
           </div>
         </div>
 
-        {/* Card Section (Bottom) - Centered and Dynamic */}
-        <div className="w-full max-w-sm mt-4 z-30">
+        {/* Card Section - Integrated into bottom of 4:5 container */}
+        <div className="mx-auto max-w-sm text-sm text-center w-full pb-4 px-4 z-30">
           <div className={`bg-white border-[1.5px] border-black p-6 mx-auto transition-all duration-300 relative w-full ${lang === 'ar' ? 'font-arabic' : ''}`} dir={lang === 'ar' ? 'rtl' : 'ltr'}>
 
             {/* Recipient */}
@@ -118,7 +129,7 @@ export default function Bouquet({ bouquet, lang }: BouquetReadOnlyProps & { lang
             </div>
 
             {/* Message - Dynamic Scaling */}
-            <div className="py-4 flex items-center justify-center min-h-[80px]">
+            <div className="py-4 flex items-center justify-center min-h-[60px]">
               <p
                 className="text-center w-full leading-relaxed font-serif whitespace-pre-wrap break-words"
                 style={{ fontSize: `${messageFontSize}px` }}
@@ -152,7 +163,6 @@ export default function Bouquet({ bouquet, lang }: BouquetReadOnlyProps & { lang
             </div>
           </div>
         </div>
-
       </div>
     </div>
   );
