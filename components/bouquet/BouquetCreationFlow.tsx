@@ -26,17 +26,19 @@ export default function BouquetCreationFlow() {
 
   return (
     <main className={`container flex flex-col p-4 mx-auto ${lang === 'ar' ? 'font-arabic' : ''}`} dir={lang === 'ar' ? 'rtl' : 'ltr'}>
-      {/* Logo/Branding */}
-      <Link href="/">
-        <Image
-          src="/ramadan.png"
-          alt="ramadan"
-          width={200}
-          height={80}
-          className="object-cover mx-auto mt-6"
-          priority
-        />
-      </Link>
+      {/* Logo/Branding - FIXED: Hide on step 3 (ShareBouquet) to avoid duplicate */}
+      {currentStep !== 3 && (
+        <Link href="/">
+          <Image
+            src="/ramadan.png"
+            alt="ramadan"
+            width={200}
+            height={80}
+            className="object-cover mx-auto mt-6"
+            priority
+          />
+        </Link>
+      )}
 
       {/* Main content area - renders different components based on current step */}
       <div className="flex-grow py-8">

@@ -1,95 +1,96 @@
 "use client";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { toPng } from "html-to-image";
-import Image from "next/image";
-import { flowers } from "../../data/data";
-import { supabase } from "@/lib/supabase";
-import { useRouter } from "next/navigation";
-import { nanoid } from "nanoid";
 import Bouquet from "../bouquet/Bouquet";
 import { useBouquet } from "../../context/BouquetContext";
-import type { Bouquet as BouquetType } from "@/types/bouquet";
 
 export default function ShareBouquet() {
   const { bouquet, lang } = useBouquet();
   const bouquetRef = useRef<HTMLDivElement>(null);
+  const [isDownloading, setIsDownloading] = useState(false);
+  const [isSharing, setIsSharing] = useState(false);
 
   const handleDownload = async () => {
-    if (bouquetRef.current === null) {
-      return;
-    }
+    if (!bouquetRef.current) return;
+    setIsDownloading(true);
 
     try {
-      const dataUrl = await toPng(bouquetRef.current, { cacheBust: true, pixelRatio: 3, backgroundColor: '#F5F5DC' });
+      await new Promise(r => setTimeout(r, 800));
+      const dataUrl = await toPng(bouquetRef.current, {
+        backgroundColor: '#F5F5DC',
+        pixelRatio: 2,
+      });
+
       const link = document.createElement("a");
-      link.download = "ramadan-bouquet.png";
+      link.download = "bouquet.png";
       link.href = dataUrl;
       link.click();
     } catch (err) {
-      console.error("Failed to download image", err);
+      console.error(err);
+    } finally {
+      setIsDownloading(false);
     }
   };
 
   const handleShare = async () => {
-    if (bouquetRef.current === null) return;
+    if (!bouquetRef.current) return;
+    setIsSharing(true);
 
     try {
+      await new Promise(r => setTimeout(r, 800));
       const dataUrl = await toPng(bouquetRef.current, {
-        cacheBust: true,
-        pixelRatio: 3, // Higher quality for social media
-        backgroundColor: '#F5F5DC'
+        backgroundColor: '#F5F5DC',
+        pixelRatio: 2,
       });
 
       const response = await fetch(dataUrl);
       const blob = await response.blob();
-      const file = new File([blob], "ramadan-bouquet.png", { type: "image/png" });
+      const file = new File([blob], "bouquet.png", { type: "image/png" });
 
       if (navigator.share && navigator.canShare?.({ files: [file] })) {
-        await navigator.share({
-          files: [file],
-          title: 'DigiBouquet',
-          text: lang === 'ar' ? 'صنعت لك هذه الباقة!' : 'I made this bouquet for you!',
-        });
+        await navigator.share({ files: [file] });
       } else {
-        // If navigator.share is not supported or sharing files is not allowed,
-        // we fallback to the download method.
         handleDownload();
       }
     } catch (err) {
-      console.error("Sharing failed", err);
+      console.error(err);
+    } finally {
+      setIsSharing(false);
     }
   };
 
-  const router = useRouter();
-
   return (
-    <div className={`text-center ${lang === 'ar' ? 'font-arabic' : ''}`}>
-      <h2 className="text-md uppercase text-center mb-10">
-        {lang === 'ar' ? "أرسل الباقة" : "SEND THE BOUQUET"}
+    <div className="text-center bg-[#F5F5DC] min-h-screen flex flex-col">
+      {/* FIXED: Reduced top padding */}
+      <h2 className="text-sm uppercase pt-4 mb-4">
+        {lang === 'ar' ? "أرسل الباقة" : "SEND YOUR BOUQUET TO YOUR BELOVED ONES"}
       </h2>
 
-      <div className="flex justify-center w-full overflow-x-auto no-scrollbar">
-        {/* We remove padding here to ensure the captured image is exactly the component size */}
-        <div ref={bouquetRef} className="w-fit mx-auto bg-[#F5F5DC] p-8 md:p-12 rounded-none">
-          <div className="shadow-2xl">
-            <Bouquet bouquet={bouquet} lang={lang} />
-          </div>
+      {/* FIXED: Reduced bottom margin */}
+      <div className="flex justify-center mb-4">
+        <div ref={bouquetRef} className="bg-[#F5F5DC] pb-8">
+          <Bouquet bouquet={bouquet} lang={lang} />
         </div>
       </div>
 
-      <div className="flex flex-col gap-4 items-center justify-center mt-8">
+      {/* FIXED: Better Arabic button text + reduced spacing */}
+      <div className="flex flex-col gap-3 items-center max-w-xs mx-auto px-4 pb-6">
         <button
           onClick={handleShare}
-          className="uppercase text-white bg-black px-8 py-3 hover:bg-black/90 transition-colors w-full max-w-xs"
+          disabled={isSharing || isDownloading}
+          className="uppercase text-white bg-black px-8 py-3 w-full text-sm font-bold disabled:opacity-50"
         >
-          {lang === 'ar' ? "مشاركة" : "SHARE"}
+          {/* FIXED: Better Arabic text */}
+          {isSharing ? '...' : (lang === 'ar' ? 'مشاركة الباقة' : 'SHARE')}
         </button>
 
         <button
           onClick={handleDownload}
-          className="uppercase text-black border border-black px-8 py-3 hover:bg-gray-100 transition-colors w-full max-w-xs"
+          disabled={isSharing || isDownloading}
+          className="uppercase border-2 border-black px-8 py-3 w-full text-sm font-bold disabled:opacity-50"
         >
-          {lang === 'ar' ? "حمّل البطاقة" : "DOWNLOAD CARD"}
+          {/* FIXED: Better Arabic text */}
+          {isDownloading ? '...' : (lang === 'ar' ? 'تحميل الصورة' : 'DOWNLOAD')}
         </button>
       </div>
     </div>

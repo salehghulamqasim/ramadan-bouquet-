@@ -1,168 +1,170 @@
-import Image from "next/image";
-import { flowers } from "../../data/data";
 import type { BouquetReadOnlyProps } from "@/types/bouquet";
+import { flowers } from "../../data/data";
 
-// Redundancy trigger for Vercel deployment
 export default function Bouquet({ bouquet, lang }: BouquetReadOnlyProps & { lang?: string }) {
-  // Helper function to get flower dimensions based on size
+
   const getFlowerDimensions = (size: string) => {
     switch (size) {
-      case "small":
-        return 80;
-      case "large":
-        return 160;
-      default:
-        return 120; // medium
+      case "small": return 80;
+      case "large": return 160;
+      default: return 120;
     }
   };
 
-  // Mathematical Text Scaling (Clamp Formula)
-  const calculateFontSize = (text: string, containerWidth = 350) => {
-    if (!text) return 16;
+  const calculateFontSize = (text: string, containerWidth = 280) => {
+    if (!text) return 13;
     const charCount = text.length;
-    const weightFactor = 0.5;
-    const minSize = 14;
-    const maxSize = 30; // Larger max size for short text
-    return Math.max(minSize, Math.min(maxSize, containerWidth / (charCount * weightFactor)));
+    const minSize = 10;
+    const maxSize = 15;
+    return Math.max(minSize, Math.min(maxSize, containerWidth / (charCount * 0.5)));
   };
 
   const messageFontSize = calculateFontSize(bouquet.letter.message);
-  const senderFontSize = Math.max(14, Math.min(24, 350 / ((bouquet.letter.sender.length || 1) * 0.7)));
+  const senderFontSize = Math.max(10, Math.min(14, 280 / ((bouquet.letter.sender.length || 1) * 0.6)));
 
   return (
-    <div className={`text-center ${lang === 'ar' ? 'font-arabic' : ''}`}>
-      <div
-        className="flex flex-col max-w-lg mx-auto bg-[#F5F5DC] rounded-xl shadow-2xl border-2 border-[#D4AF37]/50 relative overflow-hidden"
-        style={{ aspectRatio: '4/5' }}
-      >
-        <div className="flex relative justify-center items-center py-8 flex-grow">
-          <div className="relative w-full max-w-[500px] min-h-[410px]">
-            {/* Bush background images - positioned absolutely to stay fixed */}
-            {/* Bottom bush layer */}
+    // FIXED: Reduced paddingBottom from 160px to 145px
+    <div className={`relative ${lang === 'ar' ? 'font-arabic' : ''}`} style={{ width: '500px', maxWidth: '95vw', margin: '0 auto', paddingBottom: '145px' }}>
 
-            <Image
-              src={`/${bouquet.mode}/bush/bush-${bouquet.greenery + 1}.png`}
-              alt="bush background"
-              width={600}
-              height={500}
-              className="absolute top-1/2 left-1/2 z-0 transform -translate-x-1/2 -translate-y-1/2"
-              priority
-              unoptimized
-            />
+      {/* Ramadan logo - FIXED: More compact */}
+      <div className="text-center pt-3 pb-1">
+        <img
+          src="/ramadan.png"
+          alt="Ramadan Kareem"
+          className="mx-auto"
+          width={170}
+          height={55}
+          loading="eager"
+        />
+      </div>
 
-            {/* Flower container - using the EXACT working classes from your snippet */}
-            {/* Note: 'reverse' class in original implies unintended flex-wrap-reverse behavior or just normal flex-wrap if invalid */}
-            {/* I will use flex-wrap-reverse to be safe as that likely was the intent */}
-            <div className="flex flex-wrap-reverse w-[300px] justify-center items-center -space-x-4 -space-y-20 relative m-auto z-10">
-              {bouquet.flowers.flatMap(
-                (
-                  flower: { id: number; count: number },
-                  flowerIndex: number
-                ) => {
-                  const flowerData = flowers.find((f) => f.id === flower.id);
-                  if (!flowerData) return [];
+      {/* Soft circle background */}
+      <div className="absolute top-[80px] left-1/2 transform -translate-x-1/2 w-[450px] h-[450px] rounded-full bg-[#E8E4D0] opacity-60 -z-10" />
 
-                  return Array(flower.count)
-                    .fill(null)
-                    .map((_, instanceIndex) => {
-                      const rotation = Math.random() * 10 - 5;
-                      const index =
-                        bouquet.flowerOrder.length > 0
-                          ? bouquet.flowerOrder[
-                          flowerIndex * flower.count + instanceIndex
-                          ] ?? flowerIndex * flower.count + instanceIndex
-                          : flowerIndex * flower.count + instanceIndex;
+      {/* Main bouquet container - FIXED: Reduced pt */}
+      <div className="relative pt-2">
 
-                      const dimensions = getFlowerDimensions(flowerData.size);
+        {/* Flowers section */}
+        <div className="relative w-full max-w-[450px] mx-auto min-h-[360px]">
 
-                      return (
-                        <div
-                          key={`${flowerIndex}-${instanceIndex}`}
-                          className="flex relative justify-center items-center pt-4"
-                          style={{ order: index }}
-                        >
-                          <Image
-                            src={`/${bouquet.mode}/flowers/${flowerData.name}.png`}
-                            alt={flowerData.name}
-                            width={dimensions}
-                            height={dimensions}
-                            className="relative z-10 transition-transform hover:scale-105"
-                            style={{ transform: `rotate(${rotation}deg)` }}
-                            priority
-                            unoptimized
-                          />
-                        </div>
-                      );
-                    });
-                }
-              )}
-            </div>
+          {/* Bottom bush */}
+          <img
+            src={`/${bouquet.mode}/bush/bush-${bouquet.greenery + 1}.png`}
+            alt=""
+            className="absolute top-1/2 left-1/2 z-0 transform -translate-x-1/2 -translate-y-1/2"
+            style={{ width: '550px', height: 'auto' }}
+            loading="eager"
+          />
 
-            {/* Top bush layer */}
+          {/* Flowers */}
+          <div className="flex flex-wrap-reverse w-[300px] justify-center items-center -space-x-4 -space-y-20 relative m-auto z-10">
+            {bouquet.flowers.flatMap(
+              (flower: { id: number; count: number }, flowerIndex: number) => {
+                const flowerData = flowers.find((f) => f.id === flower.id);
+                if (!flowerData) return [];
 
-            <div>
-              <Image
-                src={`/${bouquet.mode}/bush/bush-${bouquet.greenery + 1
-                  }-top.png`}
-                alt="bush top"
-                width={600}
-                height={500}
-                className="absolute top-1/2 left-1/2 z-20 transform -translate-x-1/2 -translate-y-1/2 pointer-events-none"
-                priority
-                unoptimized
-              />
-            </div>
+                return Array(flower.count)
+                  .fill(null)
+                  .map((_, instanceIndex) => {
+                    const rotation = Math.random() * 10 - 5;
+                    const index =
+                      bouquet.flowerOrder.length > 0
+                        ? bouquet.flowerOrder[flowerIndex * flower.count + instanceIndex] ??
+                        flowerIndex * flower.count + instanceIndex
+                        : flowerIndex * flower.count + instanceIndex;
+
+                    const dimensions = getFlowerDimensions(flowerData.size);
+
+                    return (
+                      <div
+                        key={`${flowerIndex}-${instanceIndex}`}
+                        className="flex relative justify-center items-center pt-4"
+                        style={{ order: index }}
+                      >
+                        <img
+                          src={`/${bouquet.mode}/flowers/${flowerData.name}.png`}
+                          alt=""
+                          width={dimensions}
+                          height={dimensions}
+                          className="relative z-10"
+                          style={{ transform: `rotate(${rotation}deg)` }}
+                          loading="eager"
+                        />
+                      </div>
+                    );
+                  });
+              }
+            )}
           </div>
-        </div>
 
-        {/* Card Section - Integrated into bottom of 4:5 container */}
-        <div className="mx-auto max-w-sm text-sm text-center w-full pb-4 px-4 z-30">
-          <div className={`bg-white border-[1.5px] border-black p-6 mx-auto transition-all duration-300 relative w-full ${lang === 'ar' ? 'font-arabic' : ''}`} dir={lang === 'ar' ? 'rtl' : 'ltr'}>
+          {/* Top bush */}
+          <img
+            src={`/${bouquet.mode}/bush/bush-${bouquet.greenery + 1}-top.png`}
+            alt=""
+            className="absolute top-1/2 left-1/2 z-12 transform -translate-x-1/2 -translate-y-1/2 pointer-events-none"
+            style={{ width: '550px', height: 'auto' }}
+            loading="eager"
+          />
 
-            {/* Recipient */}
-            <div className="mb-2 text-left">
-              <span className="text-xs uppercase font-bold text-gray-400 block mb-1">
-                {lang === 'ar' ? "إلى" : "TO"}
-              </span>
-              <p className="text-lg font-bold border-b border-black/10 pb-1 inline-block min-w-[50%]">
-                {bouquet.letter.recipient}
-              </p>
-            </div>
+          {/* Card */}
+          <div
+            className="absolute bottom-[-125px] left-1/2 z-15"
+            style={{
+              transform: 'translateX(-50%) rotate(-1deg)',
+              width: '290px',
+              maxWidth: '80vw'
+            }}
+          >
+            <div
+              className={`bg-white border-[1.5px] border-black p-2 shadow-md ${lang === 'ar' ? 'font-arabic' : ''}`}
+              dir={lang === 'ar' ? 'rtl' : 'ltr'}
+            >
 
-            {/* Message - Dynamic Scaling */}
-            <div className="py-4 flex items-center justify-center min-h-[60px]">
-              <p
-                className="text-center w-full leading-relaxed font-serif whitespace-pre-wrap break-words"
-                style={{ fontSize: `${messageFontSize}px` }}
-              >
-                {bouquet.letter.message}
-              </p>
-            </div>
-
-            {/* Sender & Footer */}
-            <div className="flex justify-between items-end mt-4 border-t border-black/5 pt-2 relative">
-              {/* Moon */}
-              <div className="opacity-80">
-                <Image
-                  src="/crescent.png"
-                  alt="crescent moon"
-                  width={28}
-                  height={28}
-                  className={lang === 'ar' ? 'scale-x-[-1]' : ''}
-                  unoptimized
-                />
-              </div>
-
-              <div className="text-right">
-                <span className="text-[10px] uppercase font-bold text-gray-400 block mb-0 leading-tight">
-                  {lang === 'ar' ? "من" : "FROM"}
+              {/* Recipient */}
+              <div className="mb-2" style={{ textAlign: lang === 'ar' ? 'right' : 'left' }}>
+                <span className="text-[8px] text-gray-400 block mb-0.5">
+                  {lang === 'ar' ? "إلى" : "Dear"}
                 </span>
-                <p className="font-bold text-lg leading-tight" style={{ fontSize: `${senderFontSize}px` }}>
-                  {bouquet.letter.sender}
+                <p className="text-xs font-bold">
+                  {bouquet.letter.recipient}
                 </p>
               </div>
+
+              {/* Message */}
+              <div className="py-2 min-h-[45px]">
+                <p
+                  className="text-center leading-snug"
+                  style={{ fontSize: `${messageFontSize}px` }}
+                >
+                  {bouquet.letter.message}
+                </p>
+              </div>
+
+              {/* Footer */}
+              <div className="flex justify-between items-end mt-2 pt-2">
+                <div className={lang === 'ar' ? 'order-2' : 'order-1'}>
+                  <img
+                    src="/crescent.png"
+                    alt=""
+                    width={18}
+                    height={18}
+                    className={lang === 'ar' ? 'scale-x-[-1]' : ''}
+                    loading="eager"
+                  />
+                </div>
+
+                <div className={lang === 'ar' ? 'order-1' : 'order-2'} style={{ textAlign: lang === 'ar' ? 'left' : 'right' }}>
+                  <span className="text-[8px] text-gray-400 block mb-0.5">
+                    {lang === 'ar' ? "من" : "Sincerely,"}
+                  </span>
+                  <p className="font-bold text-xs" style={{ fontSize: `${senderFontSize}px` }}>
+                    {bouquet.letter.sender}
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
+
         </div>
       </div>
     </div>
