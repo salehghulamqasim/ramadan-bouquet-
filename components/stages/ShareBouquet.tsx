@@ -17,8 +17,11 @@ export default function ShareBouquet() {
     try {
       await new Promise(r => setTimeout(r, 800));
       const dataUrl = await toPng(bouquetRef.current, {
-        backgroundColor: '#F5F5DC',
-        pixelRatio: 2,
+        pixelRatio: 3,
+        style: {
+          borderRadius: "32px",
+          overflow: "hidden",
+        }
       });
 
       const link = document.createElement("a");
@@ -39,8 +42,11 @@ export default function ShareBouquet() {
     try {
       await new Promise(r => setTimeout(r, 800));
       const dataUrl = await toPng(bouquetRef.current, {
-        backgroundColor: '#F5F5DC',
-        pixelRatio: 2,
+        pixelRatio: 3,
+        style: {
+          borderRadius: "32px",
+          overflow: "hidden",
+        }
       });
 
       const response = await fetch(dataUrl);
@@ -66,6 +72,7 @@ export default function ShareBouquet() {
         {lang === 'ar' ? "أرسل الباقة" : "SEND YOUR BOUQUET TO YOUR BELOVED ONES"}
       </h2>
 
+      {/* FIXED: Reduced bottom margin */}
       {/* FIXED: Reduced bottom margin */}
       <div className="flex justify-center mb-4">
         <div ref={bouquetRef} className="bg-[#F5F5DC] pb-8">

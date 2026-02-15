@@ -11,12 +11,28 @@ export default function Bouquet({ bouquet, lang }: BouquetReadOnlyProps & { lang
     }
   };
 
+  // Dynamic card sizing
+  const maxTextLength = Math.max(
+    bouquet.letter.message?.length || 0,
+    bouquet.letter.recipient?.length || 0,
+    bouquet.letter.sender?.length || 0
+  );
+
+  // Use a smaller width for very short messages to keep card compact
+  // But expand significantly for longer messages to improve readability
+  const cardWidth =
+    maxTextLength > 200 ? '340px' :
+      maxTextLength > 100 ? '320px' :
+        maxTextLength < 50 ? '240px' : '290px';
+
   const calculateFontSize = (text: string, containerWidth = 280) => {
-    if (!text) return 16;
+    if (!text) return 18;
     const charCount = text.length;
-    const minSize = 12;
-    const maxSize = 24;
-    return Math.max(minSize, Math.min(maxSize, containerWidth / (charCount * 0.45)));
+    // Increased font sizes for better mobile readability
+    const minSize = 16;
+    const maxSize = 32;
+    // Adjusted divisor for larger text
+    return Math.max(minSize, Math.min(maxSize, containerWidth / (charCount * 0.42)));
   };
 
   const messageFontSize = calculateFontSize(bouquet.letter.message);
@@ -24,7 +40,7 @@ export default function Bouquet({ bouquet, lang }: BouquetReadOnlyProps & { lang
 
   return (
     // FIXED: Reduced paddingBottom from 160px to 145px
-    <div className={`relative ${lang === 'ar' ? 'font-arabic' : ''}`} style={{ width: '500px', maxWidth: '95vw', margin: '0 auto', paddingBottom: '145px' }}>
+    <div className={`relative ${lang === 'ar' ? 'font-arabic' : ''}`} style={{ width: '500px', maxWidth: '95vw', margin: '0 auto', paddingBottom: '170px' }}>
 
       {/* Ramadan logo - FIXED: More compact */}
       <div className="text-center pt-3 pb-1">
@@ -38,8 +54,7 @@ export default function Bouquet({ bouquet, lang }: BouquetReadOnlyProps & { lang
         />
       </div>
 
-      {/* Soft circle background */}
-      <div className="absolute top-[80px] left-1/2 transform -translate-x-1/2 w-[450px] h-[450px] rounded-full bg-[#E8E4D0] opacity-60 -z-10" />
+      {/* Soft circle background - REMOVED per user request */}
 
       {/* Main bouquet container - FIXED: Reduced pt */}
       <div className="relative pt-2">
@@ -108,10 +123,10 @@ export default function Bouquet({ bouquet, lang }: BouquetReadOnlyProps & { lang
 
           {/* Card */}
           <div
-            className="absolute bottom-[-125px] left-1/2 z-15"
+            className="absolute bottom-[-140px] left-1/2 z-15"
             style={{
               transform: 'translateX(-50%) rotate(-1deg)',
-              width: '290px',
+              width: cardWidth,
               maxWidth: '80vw'
             }}
           >
