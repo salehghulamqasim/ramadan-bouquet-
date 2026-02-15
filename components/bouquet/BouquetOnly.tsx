@@ -23,7 +23,7 @@ export default function BouquetOnly({ bouquet }: BouquetReadOnlyProps) {
           {/* Bottom bush layer */}
 
           <Image
-            src={`/${bouquet.mode}/bush/bush-${bouquet.greenery + 1}.png`}
+            src={`/${bouquet.mode}/bush/bush-${bouquet.greenery + 1}.webp`}
             alt="bush background"
             width={600}
             height={500}
@@ -52,8 +52,8 @@ export default function BouquetOnly({ bouquet }: BouquetReadOnlyProps) {
                     // If flowerOrder exists, use it; otherwise use default order
                     const index = bouquet.flowerOrder?.length
                       ? bouquet.flowerOrder[
-                          flowerIndex * flower.count + instanceIndex
-                        ] ?? flowerIndex * flower.count + instanceIndex
+                      flowerIndex * flower.count + instanceIndex
+                      ] ?? flowerIndex * flower.count + instanceIndex
                       : flowerIndex * flower.count + instanceIndex;
 
                     // Get dimensions based on flower size
@@ -67,7 +67,7 @@ export default function BouquetOnly({ bouquet }: BouquetReadOnlyProps) {
                       >
                         {/* Individual flower image */}
                         <Image
-                          src={`/${bouquet.mode}/flowers/${flowerData.name}.png`}
+                          src={`/${bouquet.mode}/flowers/${flowerData.name}.webp`}
                           alt={flowerData.name}
                           width={dimensions}
                           height={dimensions}
@@ -86,7 +86,7 @@ export default function BouquetOnly({ bouquet }: BouquetReadOnlyProps) {
 
           <div>
             <Image
-              src={`/${bouquet.mode}/bush/bush-${bouquet.greenery + 1}-top.png`}
+              src={`/${bouquet.mode}/bush/bush-${bouquet.greenery + 1}-top.webp`}
               alt="bush top"
               width={600}
               height={500}

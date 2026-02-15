@@ -83,7 +83,7 @@ export default function FlowerPicker() {
 
                     <Image
                       src={
-                        "/" + bouquet.mode + "/flowers/" + flower.name + ".png"
+                        "/" + bouquet.mode + "/flowers/" + flower.name + ".webp"
                       }
                       alt={lang === 'ar' ? (flower.nameAr || flower.name) : flower.name}
                       width={

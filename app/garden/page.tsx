@@ -20,7 +20,7 @@ export default async function AllBouquetsPage() {
       <div className="text-center p-6">
         <Link href="/">
           <Image
-            src="/digibouquet.png"
+            src="/digibouquet.webp"
             alt="digibouquet"
             width={200}
             height={80}
@@ -39,7 +39,7 @@ export default async function AllBouquetsPage() {
     <div className="text-center p-6">
       <Link href="/">
         <Image
-          src="/digibouquet.png"
+          src="/digibouquet.webp"
           alt="digibouquet"
           width={200}
           height={80}

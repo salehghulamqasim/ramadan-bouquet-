@@ -38,7 +38,7 @@ export default async function BouquetPage(props: Params) {
       {/* Logo/Branding */}
       <Link href="/">
         <Image
-          src="/ramadan.png"
+          src="/ramadan.webp"
           alt="ramadan"
           width={200}
           height={80}

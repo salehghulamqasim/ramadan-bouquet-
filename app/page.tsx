@@ -36,7 +36,7 @@ export default function Home() {
         {/* Crescent Moon - Responsive Sizing */}
         <div className="mb-4 w-full flex justify-center">
           <Image
-            src="/ramadanfavicon.png"
+            src="/ramadanfavicon.webp"
             alt="ramadan icon"
             width={100}
             height={100}
@@ -48,7 +48,7 @@ export default function Home() {
         {/* Calligraphy - Responsive Sizing */}
         <div className="mb-8 w-full flex justify-center">
           <Image
-            src="/ramadan.png"
+            src="/ramadan.webp"
             alt="ramadan"
             width={600}
             height={400}

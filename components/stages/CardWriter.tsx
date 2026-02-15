@@ -13,21 +13,21 @@ export default function CardWriter() {
           {/* White card container with black border */}
           <div className="hidden md:flex flex-row items-center justify-center -space-x-12">
             <Image
-              src={`/full/flowers/daisy.png`}
+              src={`/full/flowers/daisy.webp`}
               alt="card front"
               width={140}
               height={200}
               className="-rotate-12 hover:-translate-y-4 transition-all duration-300"
             />
             <Image
-              src={`/full/flowers/lily.png`}
+              src={`/full/flowers/lily.webp`}
               alt="card front"
               width={140}
               height={200}
               className="-translate-y-5 hover:-translate-y-4 transition-all duration-300"
             />
             <Image
-              src={`/full/flowers/anemone.png`}
+              src={`/full/flowers/anemone.webp`}
               alt="card front"
               width={140}
               height={200}
@@ -35,7 +35,7 @@ export default function CardWriter() {
             />
           </div>
 
-          <div className="bg-white border-2 border-black p-10 max-w-lg mx-4 md:mx-10 relative" dir={lang === 'ar' ? 'rtl' : 'ltr'}>
+          <div className="bg-white border-2 border-black p-6 md:p-10 w-full max-w-[90vw] md:max-w-lg mx-auto relative md:mx-10" dir={lang === 'ar' ? 'rtl' : 'ltr'}>
             {/* Crescent Moon Image - Bottom Left for Arabic, Bottom Right for English (as per user request "maybe even not add crsecent just add crescent finally when done typing") - Wait, user said "maybe even not add crsecent just add crescent finally when done typing". 
              Let's re-read: "okay maybe even not add crsecent just add crescent finally when done typing."
              So REMOVE crescent from here. OK. */}
@@ -110,21 +110,21 @@ export default function CardWriter() {
 
           <div className="hidden md:flex flex-row items-center justify-center -space-x-12">
             <Image
-              src={`/full/flowers/carnation.png`}
+              src={`/full/flowers/carnation.webp`}
               alt="card front"
               width={140}
               height={200}
               className="-rotate-12 hover:-translate-y-4 transition-all duration-300"
             />
             <Image
-              src={`/full/flowers/sunflower.png`}
+              src={`/full/flowers/sunflower.webp`}
               alt="card front"
               width={140}
               height={200}
               className="-translate-y-5 hover:-translate-y-4 transition-all duration-300"
             />
             <Image
-              src={`/full/flowers/peony.png`}
+              src={`/full/flowers/peony.webp`}
               alt="card front"
               width={140}
               height={200}

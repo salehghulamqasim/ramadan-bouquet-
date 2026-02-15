@@ -76,7 +76,7 @@ export default function BouquetCustomizer() {
           {/* Bottom bush layer */}
 
           <Image
-            src={`/${bouquet.mode}/bush/bush-${bouquet.greenery + 1}.png`}
+            src={`/${bouquet.mode}/bush/bush-${bouquet.greenery + 1}.webp`}
             alt="bush background"
             width={600}
             height={500}
@@ -121,7 +121,7 @@ export default function BouquetCustomizer() {
                       >
                         {/* Individual flower image */}
                         <Image
-                          src={`/${bouquet.mode}/flowers/${flowerData.name}.png`}
+                          src={`/${bouquet.mode}/flowers/${flowerData.name}.webp`}
                           alt={flowerData.name}
                           width={dimensions}
                           height={dimensions}
@@ -140,7 +140,7 @@ export default function BouquetCustomizer() {
 
           <div>
             <Image
-              src={`/${bouquet.mode}/bush/bush-${bouquet.greenery + 1}-top.png`}
+              src={`/${bouquet.mode}/bush/bush-${bouquet.greenery + 1}-top.webp`}
               alt="bush top"
               width={600}
               height={500}

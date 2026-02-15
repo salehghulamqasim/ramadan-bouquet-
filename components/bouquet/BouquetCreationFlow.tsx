@@ -30,7 +30,7 @@ export default function BouquetCreationFlow() {
       {currentStep !== 3 && (
         <Link href="/">
           <Image
-            src="/ramadan.png"
+            src="/ramadan.webp"
             alt="ramadan"
             width={200}
             height={80}

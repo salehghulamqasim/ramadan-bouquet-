@@ -12,15 +12,15 @@ export default function Bouquet({ bouquet, lang }: BouquetReadOnlyProps & { lang
   };
 
   const calculateFontSize = (text: string, containerWidth = 280) => {
-    if (!text) return 13;
+    if (!text) return 16;
     const charCount = text.length;
-    const minSize = 10;
-    const maxSize = 15;
-    return Math.max(minSize, Math.min(maxSize, containerWidth / (charCount * 0.5)));
+    const minSize = 12;
+    const maxSize = 24;
+    return Math.max(minSize, Math.min(maxSize, containerWidth / (charCount * 0.45)));
   };
 
   const messageFontSize = calculateFontSize(bouquet.letter.message);
-  const senderFontSize = Math.max(10, Math.min(14, 280 / ((bouquet.letter.sender.length || 1) * 0.6)));
+  const senderFontSize = Math.max(11, Math.min(16, 280 / ((bouquet.letter.sender.length || 1) * 0.6)));
 
   return (
     // FIXED: Reduced paddingBottom from 160px to 145px
@@ -29,7 +29,7 @@ export default function Bouquet({ bouquet, lang }: BouquetReadOnlyProps & { lang
       {/* Ramadan logo - FIXED: More compact */}
       <div className="text-center pt-3 pb-1">
         <img
-          src="/ramadan.png"
+          src="/ramadan.webp"
           alt="Ramadan Kareem"
           className="mx-auto"
           width={170}
@@ -49,7 +49,7 @@ export default function Bouquet({ bouquet, lang }: BouquetReadOnlyProps & { lang
 
           {/* Bottom bush */}
           <img
-            src={`/${bouquet.mode}/bush/bush-${bouquet.greenery + 1}.png`}
+            src={`/${bouquet.mode}/bush/bush-${bouquet.greenery + 1}.webp`}
             alt=""
             className="absolute top-1/2 left-1/2 z-0 transform -translate-x-1/2 -translate-y-1/2"
             style={{ width: '550px', height: 'auto' }}
@@ -82,7 +82,7 @@ export default function Bouquet({ bouquet, lang }: BouquetReadOnlyProps & { lang
                         style={{ order: index }}
                       >
                         <img
-                          src={`/${bouquet.mode}/flowers/${flowerData.name}.png`}
+                          src={`/${bouquet.mode}/flowers/${flowerData.name}.webp`}
                           alt=""
                           width={dimensions}
                           height={dimensions}
@@ -99,7 +99,7 @@ export default function Bouquet({ bouquet, lang }: BouquetReadOnlyProps & { lang
 
           {/* Top bush */}
           <img
-            src={`/${bouquet.mode}/bush/bush-${bouquet.greenery + 1}-top.png`}
+            src={`/${bouquet.mode}/bush/bush-${bouquet.greenery + 1}-top.webp`}
             alt=""
             className="absolute top-1/2 left-1/2 z-12 transform -translate-x-1/2 -translate-y-1/2 pointer-events-none"
             style={{ width: '550px', height: 'auto' }}
@@ -122,10 +122,10 @@ export default function Bouquet({ bouquet, lang }: BouquetReadOnlyProps & { lang
 
               {/* Recipient */}
               <div className="mb-2" style={{ textAlign: lang === 'ar' ? 'right' : 'left' }}>
-                <span className="text-[8px] text-gray-400 block mb-0.5">
+                <span className="text-[10px] text-gray-500 block mb-0.5 font-bold opacity-70">
                   {lang === 'ar' ? "إلى" : "Dear"}
                 </span>
-                <p className="text-xs font-bold">
+                <p className="text-sm font-bold">
                   {bouquet.letter.recipient}
                 </p>
               </div>
@@ -142,19 +142,19 @@ export default function Bouquet({ bouquet, lang }: BouquetReadOnlyProps & { lang
 
               {/* Footer */}
               <div className="flex justify-between items-end mt-2 pt-2">
-                <div className={lang === 'ar' ? 'order-2' : 'order-1'}>
+                <div>
                   <img
-                    src="/crescent.png"
+                    src="/crescent.webp"
                     alt=""
-                    width={18}
-                    height={18}
+                    width={24}
+                    height={24}
                     className={lang === 'ar' ? 'scale-x-[-1]' : ''}
                     loading="eager"
                   />
                 </div>
 
-                <div className={lang === 'ar' ? 'order-1' : 'order-2'} style={{ textAlign: lang === 'ar' ? 'left' : 'right' }}>
-                  <span className="text-[8px] text-gray-400 block mb-0.5">
+                <div style={{ textAlign: lang === 'ar' ? 'left' : 'right' }}>
+                  <span className="text-[10px] text-gray-500 block mb-0.5 font-bold opacity-70">
                     {lang === 'ar' ? "من" : "Sincerely,"}
                   </span>
                   <p className="font-bold text-xs" style={{ fontSize: `${senderFontSize}px` }}>
