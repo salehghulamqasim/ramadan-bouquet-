@@ -41,8 +41,8 @@ export default function CardWriter() {
              So REMOVE crescent from here. OK. */}
 
             <div className="space-y-4">
-              <div className="flex flex-row items-center gap-2">
-                <label htmlFor="recipient">{lang === 'ar' ? "إلى " : "Dear "}</label>
+              <div className="flex flex-row items-center gap-2 w-full">
+                <label htmlFor="recipient" className="whitespace-nowrap shrink-0">{lang === 'ar' ? "إلى " : "Dear "}</label>
                 <input
                   id="recipient"
                   value={bouquet.letter.recipient || ""}
@@ -56,7 +56,7 @@ export default function CardWriter() {
                     }))
                   }
                   placeholder={lang === 'ar' ? "الأحباب،" : "Flora,"}
-                  className={`border-none bg-transparent focus:outline-none focus:ring-0 ${lang === 'ar' ? 'font-arabic' : ''}`}
+                  className={`flex-1 min-w-0 border-none bg-transparent focus:outline-none focus:ring-0 ${lang === 'ar' ? 'font-arabic' : ''}`}
                 />{" "}
               </div>
               <div>
@@ -78,15 +78,11 @@ export default function CardWriter() {
                 />
               </div>
 
-              <div className="flex flex-col gap-2 mt-4 w-fit ml-auto items-end" style={{ marginLeft: lang === 'ar' ? '0' : 'auto', marginRight: lang === 'ar' ? 'auto' : '0', alignItems: lang === 'ar' ? 'flex-end' : 'flex-start' }}>
-                {/* Wait, the original code had "flex-col items-right justify-end gap-2" and label "text-right". 
-                      For Arabic (RTL), we want "Sincerely" on the LEFT? No, usually signatures are on the left in English cards (bottom right visually usually).
-                      Let's stick to the visual layout.
-                      English: Sincerely (Left aligned text?) No, usually bottom right. Original code had "text-right" class on label and input.
-                      Arabic: "Best regards" usually bottom left.
-                      Let's blindly follow "Sincerely" placement.
-                  */}
-                <label htmlFor="sender" className={`${lang === 'ar' ? 'text-left' : 'text-right'} w-full`}>
+              {/* Signature Block */}
+              <div
+                className={`flex flex-col gap-2 mt-4 w-fit ${lang === 'ar' ? 'mr-auto items-end text-left' : 'ml-auto items-end text-right'}`}
+              >
+                <label htmlFor="sender" className="w-full">
                   {lang === 'ar' ? "تقبل الله منا ومنكم ," : "Sincerely,"}
                 </label>
                 <input
@@ -102,7 +98,7 @@ export default function CardWriter() {
                     }))
                   }
                   placeholder={lang === 'ar' ? "محبكم" : "Me"}
-                  className={`border-none bg-transparent focus:outline-none focus:ring-0 ${lang === 'ar' ? 'text-left font-arabic' : 'text-right'}`}
+                  className={`border-none bg-transparent focus:outline-none focus:ring-0 w-full ${lang === 'ar' ? 'text-left font-arabic' : 'text-right'}`}
                 />
               </div>
             </div>

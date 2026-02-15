@@ -1,6 +1,7 @@
 "use client";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { toPng } from "html-to-image";
+import confetti from "canvas-confetti";
 import Bouquet from "../bouquet/Bouquet";
 import { useBouquet } from "../../context/BouquetContext";
 
@@ -9,6 +10,47 @@ export default function ShareBouquet() {
   const bouquetRef = useRef<HTMLDivElement>(null);
   const [isDownloading, setIsDownloading] = useState(false);
   const [isSharing, setIsSharing] = useState(false);
+
+  useEffect(() => {
+    // Elegant star burst from the top
+    const count = 150;
+    const defaults = {
+      origin: { y: -0.1 },
+      spread: 360,
+      ticks: 300,
+      gravity: 0.6,
+      decay: 0.94,
+      startVelocity: 30,
+      shapes: ['star'] as confetti.Shape[],
+      colors: ['#FFE87C', '#FFD700', '#F4F4F4', '#B8860B'], // Varied Gold, Silver/White, Dark gold
+    };
+
+    function shoot() {
+      confetti({
+        ...defaults,
+        particleCount: 50,
+        scalar: 1.2,
+        origin: { x: 0.5, y: -0.1 }
+      });
+
+      confetti({
+        ...defaults,
+        particleCount: 25,
+        scalar: 0.75,
+        origin: { x: 0.2, y: -0.1 }
+      });
+
+      confetti({
+        ...defaults,
+        particleCount: 25,
+        scalar: 0.75,
+        origin: { x: 0.8, y: -0.1 }
+      });
+    }
+
+    // Single elegant burst on entry
+    shoot();
+  }, []);
 
   const handleDownload = async () => {
     if (!bouquetRef.current) return;
