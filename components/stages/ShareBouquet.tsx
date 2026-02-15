@@ -65,8 +65,13 @@ export default function ShareBouquet() {
     }
   };
 
+  // We need to render the hidden export component in the DOM
+  // The state and logic are already updated in previous step
+  // Just ensuring the return statement is clean
   return (
     <div className="text-center bg-[#F5F5DC] min-h-screen flex flex-col">
+
+
       {/* FIXED: Reduced top padding */}
       <h2 className="text-sm uppercase pt-4 mb-4">
         {lang === 'ar' ? "أرسل الباقة" : "SEND YOUR BOUQUET TO YOUR BELOVED ONES"}

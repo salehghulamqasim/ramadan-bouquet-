@@ -21,26 +21,35 @@ export default function Bouquet({ bouquet, lang }: BouquetReadOnlyProps & { lang
   // Use a smaller width for very short messages to keep card compact
   // But expand significantly for longer messages to improve readability
   const cardWidth =
-    maxTextLength > 200 ? '340px' :
-      maxTextLength > 100 ? '320px' :
-        maxTextLength < 50 ? '240px' : '290px';
+    maxTextLength > 160 ? 420 :
+      maxTextLength > 80 ? 360 :
+        maxTextLength < 40 ? 240 : 290;
 
   const calculateFontSize = (text: string, containerWidth = 280) => {
     if (!text) return 18;
     const charCount = text.length;
     // Increased font sizes for better mobile readability
-    const minSize = 16;
+    const minSize = 14;
     const maxSize = 32;
     // Adjusted divisor for larger text
-    return Math.max(minSize, Math.min(maxSize, containerWidth / (charCount * 0.42)));
+    return Math.max(minSize, Math.min(maxSize, containerWidth / (charCount * 0.44)));
   };
 
-  const messageFontSize = calculateFontSize(bouquet.letter.message);
+  const messageFontSize = calculateFontSize(bouquet.letter.message, cardWidth);
   const senderFontSize = Math.max(11, Math.min(16, 280 / ((bouquet.letter.sender.length || 1) * 0.6)));
 
   return (
     // FIXED: Reduced paddingBottom from 160px to 145px
-    <div className={`relative ${lang === 'ar' ? 'font-arabic' : ''}`} style={{ width: '500px', maxWidth: '95vw', margin: '0 auto', paddingBottom: '170px' }}>
+    <div
+      className={`relative ${lang === 'ar' ? 'font-arabic' : ''}`}
+      style={{
+        width: '500px',
+        maxWidth: '95vw',
+        margin: '0 auto',
+        paddingBottom: '170px',
+        paddingTop: '0px'
+      }}
+    >
 
       {/* Ramadan logo - FIXED: More compact */}
       <div className="text-center pt-3 pb-1">
@@ -123,11 +132,11 @@ export default function Bouquet({ bouquet, lang }: BouquetReadOnlyProps & { lang
 
           {/* Card */}
           <div
-            className="absolute bottom-[-140px] left-1/2 z-15"
+            className="absolute bottom-[-175px] left-1/2 z-15"
             style={{
               transform: 'translateX(-50%) rotate(-1deg)',
-              width: cardWidth,
-              maxWidth: '80vw'
+              width: `${cardWidth}px`,
+              maxWidth: '90vw'
             }}
           >
             <div
