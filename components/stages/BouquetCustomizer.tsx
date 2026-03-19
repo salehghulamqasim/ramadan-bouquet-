@@ -71,7 +71,7 @@ export default function BouquetCustomizer() {
       </div>
 
       <div className="flex relative justify-center items-center py-4 my-16 -mt-6">
-        <div className="relative w-[500px] min-h-[480px]">
+        <div className="relative w-[500px] min-h-[380px]">
           {/* Bush background images - positioned absolutely to stay fixed */}
           {/* Bottom bush layer */}
 

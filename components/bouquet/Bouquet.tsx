@@ -81,7 +81,7 @@ export default function Bouquet({ bouquet, lang }: BouquetReadOnlyProps & { lang
 
       {/* Bouquet flowers section */}
       <div className="relative pt-2">
-        <div className="relative w-full max-w-[450px] mx-auto min-h-[480px] -mt-6">
+        <div className="relative w-full max-w-[450px] mx-auto min-h-[380px] -mt-6">
 
           {/* Bottom bush */}
           <img
@@ -144,11 +144,11 @@ export default function Bouquet({ bouquet, lang }: BouquetReadOnlyProps & { lang
         </div>
       </div>
 
-      {/* Card - NOW in normal flow, sitting safely below the bouquet */}
+      {/* Card - overlapping the bush base naturally like the English reference */}
       <div
         className="relative z-15 mx-auto"
         style={{
-          marginTop: '10px',
+          marginTop: '-60px',
           transform: 'rotate(-1deg)',
           width: `${cardWidth}px`,
           maxWidth: '90vw'
