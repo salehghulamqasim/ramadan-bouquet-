@@ -30,8 +30,8 @@ export default function BouquetCreationFlow() {
       {currentStep !== 3 && (
         <Link href="/">
           <Image
-            src="/ramadan.webp"
-            alt="ramadan"
+            src="/eid_saeed.png"
+            alt="Eid Saeed"
             width={200}
             height={80}
             className="object-cover mx-auto mt-6"

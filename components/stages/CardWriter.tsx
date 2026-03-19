@@ -83,7 +83,7 @@ export default function CardWriter() {
                 className={`flex flex-col gap-2 mt-4 w-fit ${lang === 'ar' ? 'mr-auto items-end text-left' : 'ml-auto items-end text-right'}`}
               >
                 <label htmlFor="sender" className="w-full">
-                  {lang === 'ar' ? "تقبل الله منا ومنكم ," : "Sincerely,"}
+                  {lang === 'ar' ? "كل عام وأنتم بخير ," : "Eid Mubarak,"}
                 </label>
                 <input
                   id="sender"

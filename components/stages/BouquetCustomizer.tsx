@@ -38,11 +38,11 @@ export default function BouquetCustomizer() {
   const getFlowerDimensions = (size: string) => {
     switch (size) {
       case "small":
-        return 80;
+        return 70;
       case "large":
-        return 160;
+        return 140;
       default:
-        return 120; // medium
+        return 105; // medium
     }
   };
 
@@ -70,23 +70,23 @@ export default function BouquetCustomizer() {
         </div>
       </div>
 
-      <div className="flex relative justify-center items-center py-4 my-16">
-        <div className="relative w-[500px] min-h-[410px]">
+      <div className="flex relative justify-center items-center py-4 my-16 -mt-6">
+        <div className="relative w-[500px] min-h-[480px]">
           {/* Bush background images - positioned absolutely to stay fixed */}
           {/* Bottom bush layer */}
 
           <Image
             src={`/${bouquet.mode}/bush/bush-${bouquet.greenery + 1}.webp`}
             alt="bush background"
-            width={600}
-            height={500}
+            width={500}
+            height={415}
             className="absolute top-1/2 left-1/2 z-0 transform -translate-x-1/2 -translate-y-1/2"
             priority
           />
 
           {/* Flower container - flowers can move around within this area */}
 
-          <div className="flex flex-wrap reverse w-[300px] justify-center items-center -space-x-4 -space-y-20 relative m-auto">
+          <div className="flex flex-wrap reverse w-[300px] justify-center items-center -space-x-1 -space-y-10 relative m-auto pt-16">
             {/* Map through each flower type and create individual flower instances */}
             {bouquet.flowers.flatMap(
               (flower: { id: number; count: number }, flowerIndex: number) => {
@@ -142,8 +142,8 @@ export default function BouquetCustomizer() {
             <Image
               src={`/${bouquet.mode}/bush/bush-${bouquet.greenery + 1}-top.webp`}
               alt="bush top"
-              width={600}
-              height={500}
+              width={500}
+              height={415}
               className="absolute top-1/2 left-1/2 z-10 transform -translate-x-1/2 -translate-y-1/2"
               priority
             />

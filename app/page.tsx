@@ -48,8 +48,8 @@ export default function Home() {
         {/* Calligraphy - Responsive Sizing */}
         <div className="mb-8 w-full flex justify-center">
           <Image
-            src="/ramadan.webp"
-            alt="ramadan"
+            src="/eid_saeed.png"
+            alt="Eid Saeed"
             width={600}
             height={400}
             className="w-auto h-auto max-w-[90vw] md:max-w-[600px] object-contain"

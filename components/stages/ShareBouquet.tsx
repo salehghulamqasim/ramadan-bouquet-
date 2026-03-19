@@ -12,7 +12,7 @@ export default function ShareBouquet() {
   const [isSharing, setIsSharing] = useState(false);
 
   useEffect(() => {
-    // Elegant star burst from the top
+    // Elegant Eid celebration burst from the top
     const count = 150;
     const defaults = {
       origin: { y: -0.1 },
@@ -22,7 +22,7 @@ export default function ShareBouquet() {
       decay: 0.94,
       startVelocity: 30,
       shapes: ['star'] as confetti.Shape[],
-      colors: ['#FFE87C', '#FFD700', '#F4F4F4', '#B8860B'], // Varied Gold, Silver/White, Dark gold
+      colors: ['#D4AF37', '#FFD700', '#C8A84E', '#228B22', '#FFFFFF', '#F5F5DC'],
     };
 
     function shoot() {
