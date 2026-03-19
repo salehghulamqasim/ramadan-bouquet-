@@ -121,9 +121,16 @@ export default function ShareBouquet() {
 
       {/* FIXED: Reduced bottom margin */}
       {/* FIXED: Reduced bottom margin */}
-      <div className="flex justify-center mb-4">
-        <div ref={bouquetRef} className="bg-[#F5F5DC] pb-8">
-          <Bouquet bouquet={bouquet} lang={lang} />
+      <div className="flex justify-center mb-4 w-full">
+        {/* Aspect ratio container (2:3 portrait) perfectly centers the bouquet with padding */}
+        <div
+          ref={bouquetRef}
+          className="bg-[#F5F5DC] w-full max-w-[500px] flex items-center justify-center"
+          style={{ aspectRatio: "2 / 3", padding: "2rem" }}
+        >
+          <div className="scale-90 md:scale-100 origin-center">
+            <Bouquet bouquet={bouquet} lang={lang} />
+          </div>
         </div>
       </div>
 
