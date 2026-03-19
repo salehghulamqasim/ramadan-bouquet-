@@ -86,7 +86,7 @@ export default function BouquetCustomizer() {
 
           {/* Flower container - flowers can move around within this area */}
 
-          <div className="flex flex-wrap reverse w-[380px] justify-center items-center space-x-2 -space-y-10 relative m-auto pt-16">
+          <div className="flex flex-wrap reverse w-[345px] justify-center items-center space-x-1 -space-y-10 relative m-auto pt-16">
             {/* Map through each flower type and create individual flower instances */}
             {bouquet.flowers.flatMap(
               (flower: { id: number; count: number }, flowerIndex: number) => {

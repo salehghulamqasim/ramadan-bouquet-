@@ -93,7 +93,7 @@ export default function Bouquet({ bouquet, lang }: BouquetReadOnlyProps & { lang
           />
 
           {/* Flowers */}
-          <div className="flex flex-wrap-reverse w-[380px] justify-center items-center space-x-2 -space-y-10 relative m-auto z-10 pt-16">
+          <div className="flex flex-wrap-reverse w-[345px] justify-center items-center space-x-1 -space-y-10 relative m-auto z-10 pt-16">
             {bouquet.flowers.flatMap(
               (flower: { id: number; count: number }, flowerIndex: number) => {
                 const flowerData = flowers.find((f) => f.id === flower.id);
