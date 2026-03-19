@@ -119,14 +119,13 @@ export default function ShareBouquet() {
         {lang === 'ar' ? "أرسل الباقة" : "SEND YOUR BOUQUET TO YOUR BELOVED ONES"}
       </h2>
 
-      <div className="flex justify-center mb-4 w-full">
-        {/* Aspect ratio container (3:4 portrait) nicely fits the bouquet like the English reference */}
+      <div className="flex justify-center mb-4 w-full px-2">
+        {/* Tight wrapper to crop empty space around the bouquet for a perfect shareable size */}
         <div
           ref={bouquetRef}
-          className="bg-[#F5F5DC] w-full max-w-[600px] flex items-center justify-center p-4 md:p-6"
-          style={{ aspectRatio: "3 / 4" }}
+          className="bg-[#F5F5DC] inline-block p-4 pt-6 pb-[20px] rounded-[32px]"
         >
-          <div className="w-full scale-95 origin-center">
+          <div className="w-[500px] max-w-[90vw] origin-top mx-auto">
             <Bouquet bouquet={bouquet} lang={lang} />
           </div>
         </div>
